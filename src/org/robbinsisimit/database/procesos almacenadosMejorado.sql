@@ -538,8 +538,11 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_ListarTicketSoporte()
 	begin 
-		select *
-			from TicketSoporte;
+		select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus, 
+				Concat(C.clienteId, C.nombre, C.apellido) AS 'Clientes', 
+                TS.facturaId from TicketSoporte TS
+        join Clientes C on TS.clienteId = C.clienteId;
+
     end $$
 DELIMITER ;
  

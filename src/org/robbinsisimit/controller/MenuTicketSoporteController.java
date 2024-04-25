@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import org.robbinsisimit.dao.Conexion;
 import org.robbinsisimit.model.Cliente;
+import org.robbinsisimit.model.TicketSoporte;
 import org.robbinsisimit.system.Main;
 
 /**
@@ -49,6 +50,16 @@ public class MenuTicketSoporteController implements Initializable {
         cmbEstatus.getItems().add("En proceso");
         cmbEstatus.getItems().add("Finalizado");
     }
+    
+    public ObservableList<TicketSoporte> listarTicket(){
+        ArrayList<TicketSoporte> tickets = new ArrayList<>();
+        try{
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public ObservableList<Cliente> listarClientes(){
         ArrayList<Cliente> clientes = new ArrayList<>();
         
