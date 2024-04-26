@@ -326,7 +326,7 @@ begin
 		(fech,hor,cliId,empId,tot);
 end $$
 DELIMITER ;
-call sp_AgregarFactura('12-4-12','12:34:55',2,1,'1330');
+call sp_AgregarFactura('12-4-12','12:34:55',1,1,'1330');
 -- Listar
 DELIMITER $$
 create procedure sp_ListarFacturas()
@@ -478,6 +478,62 @@ begin
 end $$
 DELIMITER ;
 
+
+- --------------------- Promociones ------------------------------------------
+ 
+-- Agregar
+delimiter $$
+create procedure sp_agregarPromociones(in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
+	begin
+		insert into Promociones (prePro, descPro, feIni, feFina, proId) values
+			(precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacione, productoId);
+    end $$
+delimiter ;
+ 
+ 
+-- listar
+delimiter $$
+create procedure sp_listarPromociones()
+	begin
+		select * from Promociones;
+    end $$
+delimiter ;
+ 
+ 
+-- buscar
+delimiter $$
+create procedure sp_buscarPromociones(in promoId int)
+	begin
+		select * from Promociones
+			where promocionId = promoId;
+    end $$
+delimiter ;
+ 
+ 
+-- eliminar
+delimiter $$
+create procedure sp_eliminarPromociones(in promoId int)
+	begin
+		delete 
+			from Promociones
+				where promocionId = promoId;
+    end $$
+delimiter ;
+ 
+-- editar
+delimiter $$
+create procedure sp_editarPromociones(in promoId int, in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
+	begin
+		update Promociones
+			set 
+            precioPromocion = prePro,
+            descripcionPromocion = descPro,
+            fechaInicio = feIni,
+            fechaFinalizacion = feFina,
+            productoId = proId
+            where promocionId = promoId;
+    end $$
+delimiter ;
 -- detalleCompra
  
 DELIMITER $$
