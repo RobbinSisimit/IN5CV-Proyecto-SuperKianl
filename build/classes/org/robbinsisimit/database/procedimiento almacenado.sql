@@ -368,7 +368,7 @@ begin
 		(fech,hor,cliId,empId,tot);
 end $$
 DELIMITER ;
-
+call sp_AgregarFactura('12-4-12','12:34:55','3','3','1300');
 -- Listar
 DELIMITER $$
 create procedure sp_ListarFacturas()
@@ -465,7 +465,7 @@ DELIMITER $$
         end $$
 DELIMITER ;
  
-call  sp_AgregarEmpleado('1', '2', 2.5, '10:10:10', '10:10:10', 1);
+call  sp_AgregarEmpleado('sergio', 'Agustin', 2.5, '10:10:10', '10:10:10', 1);
  
 DELIMITER $$
 create procedure sp_ListarEmpleados()
@@ -528,12 +528,13 @@ call sp_AsignarEncargado(1,1);
 -- ticketSoporte
  
 DELIMITER $$
-	create procedure sp_AgregarTicketSoporte(des varchar(250), cliId int)
+	create procedure sp_AgregarTicketSoporte(des varchar(250), cliId int, facId int)
 		begin
-			insert into TicketSoporte (descripcionTicket, estatus, clienteId) values 
-				(des, 'Recién Creado', cliId);
+			insert into TicketSoporte (descripcionTicket, estatus, clienteId, facturaId) values 
+				(des, 'Recién Creado', cliId, facId);
         end $$
 DELIMITER ;
+call sp_AgregarTicketSoporte('ninguna','3','2');
  
 DELIMITER $$
 create procedure sp_ListarTicketSoporte()
@@ -546,7 +547,6 @@ create procedure sp_ListarTicketSoporte()
     end $$
 DELIMITER ;
  
-call sp_ListarTicketSoporte();
  
 DELIMITER $$
 create procedure sp_EditarTicketSoporte(ticId int, des varchar(250), est varchar(30), cliId int)
@@ -559,7 +559,6 @@ create procedure sp_EditarTicketSoporte(ticId int, des varchar(250), est varchar
     end $$
 DELIMITER ;
  
-call sp_EditarTicketSoporte(1, 'ppp', 'reciente',1);
  
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(ticId int)
@@ -569,7 +568,6 @@ create procedure sp_EliminarTicketSoporte(ticId int)
     end $$
 DELIMITER ;
  
-call sp_EliminarTicketSoporte(2);
  
 DELIMITER $$
 create procedure sp_BuscarTicketSoporte(ticId int)
@@ -580,4 +578,6 @@ create procedure sp_BuscarTicketSoporte(ticId int)
     end $$
 DELIMITER ;
  
-call sp_BuscarTicketSoporte(1);
+ call sp_ListarTicketSoporte();
+ 
+ select * from Clientes;

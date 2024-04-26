@@ -86,7 +86,7 @@ public class Main extends Application {
     
     public void menuTicketSoporteView(){
         try{
-            MenuTicketSoporteController menuTicketSoporteView = (MenuTicketSoporteController)switchScene("MenuTicketSoporteView.fxml", 850, 600);
+            MenuTicketSoporteController menuTicketSoporteView = (MenuTicketSoporteController)switchScene("MenuTicketSoporteView.fxml", 1000, 600);
             menuTicketSoporteView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());

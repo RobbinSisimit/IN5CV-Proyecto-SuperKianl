@@ -58,16 +58,8 @@ create table Compras(
     primary key PK_compraId(compraId)
 );
  
-create table TicketSoporte(
-	ticketSoporteId int not null auto_increment,
-    descripcionTicket varchar(250) not null,
-    estatus varchar(30) not null,
-    clienteId int(11) not null,
-    primary key PK_ticketSoporteId(ticketSoporteId),
-    constraint FK_TicketSoporte_Clientes foreign key (clienteId) references Clientes(clienteId)
-);
  
-create table Facturas(
+ create table Facturas(
 	facturaId int not null auto_increment,
     fecha date not null,
     hora time not null,
@@ -78,6 +70,19 @@ create table Facturas(
     constraint FK_Facturas_Clientes foreign key (clienteId) references Clientes(clienteId),
     constraint FK_Facturas_Empleados foreign key (empleadoId) references Empleados(empleadoId)
 );
+
+create table TicketSoporte(
+	ticketSoporteId int not null auto_increment,
+    descripcionTicket varchar(250) not null,
+    estatus varchar(30) not null,
+    clienteId int(11) not null,
+    facturaId int (11),
+    primary key PK_ticketSoporteId(ticketSoporteId),
+    constraint FK_TicketSoporte_Clientes foreign key (clienteId) references Clientes(clienteId),
+    constraint FK_TicketSoporte_Facturas foreign key (facturaId) references Facturas(facturaId)
+);
+ 
+
  
 create table Productos(
 	productoId int not null auto_increment,
