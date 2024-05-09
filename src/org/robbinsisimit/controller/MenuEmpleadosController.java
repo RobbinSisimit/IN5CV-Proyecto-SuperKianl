@@ -17,10 +17,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.robbinsisimit.dao.Conexion;
+import org.robbinsisimit.model.Cargo;
 import org.robbinsisimit.model.Empleado;
 import org.robbinsisimit.system.Main;
 
@@ -39,6 +41,8 @@ public class MenuEmpleadosController implements Initializable {
     TableView tblEmpleados;
     @FXML
     TableColumn colEmpleadoId, colNombreEmpleado, colApellidoEmpleado, colSueldo, colHoraEntrada,colHoraSalida,colCargoId,colEncargadoId;
+    @FXML
+    ComboBox cmbCargoId;
     
     
     @Override
@@ -57,6 +61,19 @@ public class MenuEmpleadosController implements Initializable {
         colCargoId.setCellValueFactory(new PropertyValueFactory<Empleado, Integer>("cargoId"));
         colEncargadoId.setCellValueFactory(new PropertyValueFactory<Empleado, Integer>("encargadoId"));
         tblEmpleados.getSortOrder().add(colEmpleadoId);
+    }
+    
+    public int obtenerIndexCargo(){
+        int index = 0;
+        for(int i= 0; i >= cmbCargoId.getItems().size(); i++ ){
+            String cargoCmb = cmbCargoId.getItems().get(i).toString();
+            String cargoTbl = ((Empleado)tblEmpleados.getSelectionModel().getSelectedItem()).getCargo();
+            if(cargoCmb.equals(cargoTbl)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
     
     public ObservableList<Empleado> listarEmpleados(){
@@ -101,6 +118,42 @@ public class MenuEmpleadosController implements Initializable {
         return FXCollections.observableArrayList(empleados);
     }
     
+    public ObservableList<Cargo> listarCargo(){
+        ArrayList<Cargo> cargos = new ArrayList<>();
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarCargos()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            
+            while(resultSet.next()){
+                int cargoId = resultSet.getInt("cargoId");
+                String nombreCargo = resultSet.getString("nombreCargo");
+                String descripcionCargo = resultSet.getString("descripcionCargo");
+                
+                cargos.add(new Cargo(cargoId, nombreCargo, descripcionCargo));
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultSet != null){
+                    resultSet.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+
+            }
+        }
+        return FXCollections.observableList(cargos);
+    }
     public Main getStage() {
         return stage;
     }

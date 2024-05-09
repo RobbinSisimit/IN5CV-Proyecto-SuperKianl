@@ -3,6 +3,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -23,5 +24,12 @@
         </columns>
       </TableView>
       <ComboBox fx:id="cmbCargoId" layoutX="496.0" layoutY="58.0" prefHeight="36.0" prefWidth="191.0" />
+      <ComboBox fx:id="cmbEncargado" layoutX="705.0" layoutY="58.0" prefHeight="36.0" prefWidth="191.0" />
+      <TextField fx:id="tfEmpleadoId" layoutX="38.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" />
+      <TextField fx:id="tfNombreEmpleado" layoutX="218.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" />
+      <TextField fx:id="tfApellidoEmpleado" layoutX="404.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" />
+      <TextField fx:id="tfSueldp" layoutX="579.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" />
+      <TextField fx:id="tfHoraEntrada" layoutX="753.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" />
+      <TextField fx:id="tfHoraSalida" layoutX="38.0" layoutY="182.0" prefHeight="36.0" prefWidth="165.0" />
    </children>
 </AnchorPane>
