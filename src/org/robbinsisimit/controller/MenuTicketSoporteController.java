@@ -95,7 +95,7 @@ public class MenuTicketSoporteController implements Initializable {
         tblTickets.getSortOrder().add(colTicketId);
     }
     
-        public int obtenerIndexCliente(){
+    public int obtenerIndexCliente(){
         int index = 0;
         for(int i = 0; i >= cmbClientes.getItems().size() ; i++){
             String clienteCmb = cmbClientes.getItems().get(i).toString();
