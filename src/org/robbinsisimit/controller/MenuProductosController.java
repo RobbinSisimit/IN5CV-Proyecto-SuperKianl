@@ -64,7 +64,7 @@ public class MenuProductosController implements Initializable {
     }
     
     
-    public ObservableList<Producto> listarProductos(){
+    public ObservableList<Producto>listarProductos(){
         ArrayList<Producto> productos = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
@@ -79,12 +79,10 @@ public class MenuProductosController implements Initializable {
                 double precioVentaUnitario = resultSet.getDouble("precioVentaUnitario");
                 double precioVentaMayor = resultSet.getDouble("precioVentaMayor");
                 double precioCompra = resultSet.getDouble("precioCompra");
-                byte imagenProducto = resultSet.getByte("imagenProducto");
-                String distribuidor = resultSet.getString("distribuidor");
-                String categoriaProducto = resultSet.getString("categoriaProducto");
-                
-               
-               
+                byte[] imagenProducto = resultSet.getBytes("imagenProducto");
+                String distribuidor = resultSet.getString("Distribuidores");
+                String categoriaProductos = resultSet.getString("Categoria");
+                productos.add(new Producto(productoId,nombreProducto,descripcionProducto,cantidadStock,precioVentaUnitario,precioVentaMayor,precioCompra,imagenProducto,distribuidor,categoriaProductos));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -102,9 +100,7 @@ public class MenuProductosController implements Initializable {
             }catch(SQLException e){
                 System.out.println(e.getMessage());
             }
-            
         }
-        
         return FXCollections.observableArrayList(productos);
     }
 

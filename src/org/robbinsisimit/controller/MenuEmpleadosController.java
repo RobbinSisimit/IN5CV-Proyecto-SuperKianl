@@ -264,10 +264,9 @@ public class MenuEmpleadosController implements Initializable {
             statement.setString(2, tfNombreEmpleado.getText());
             statement.setString(3, tfApellidoEmpleado.getText());
             statement.setDouble(4,Double.parseDouble(tfSueldp.getText()));
-            statement.setTime(4, horaEntrada);
-            statement.setTime(5, horaSalida);
-            statement.setInt(6,((Cargo)cmbCargoId.getSelectionModel().getSelectedItem()).getCargoId());
-            statement.setInt(7, 1);
+            statement.setTime(5, horaEntrada);
+            statement.setTime(6, horaSalida);
+            statement.setInt(7,((Cargo)cmbCargoId.getSelectionModel().getSelectedItem()).getCargoId());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
