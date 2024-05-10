@@ -44,10 +44,10 @@ public class MenuTicketSoporteController implements Initializable {
     ComboBox cmbClientes, cmbEstatus;
     
     @FXML
-    Button btnRegresar, btnGuardar,btnVaciar;
+    Button btnRegresar, btnGuardar,btnVaciar;  
     
     @FXML
-    TableView tblTickets;
+    TableView tblTickets;    
     
     @FXML
     TableColumn colTicketId,colDescripcion,colEstatus,colCliente,colFacturaId;

@@ -101,7 +101,7 @@ public class MenuEmpleadosController implements Initializable {
     
     public int obtenerIndexCargo(){
         int index = 0;
-        for(int i= 0; i >= cmbCargoId.getItems().size(); i++ ){
+        for(int i = 0; i >= cmbCargoId.getItems().size() ; i++ ){
             String cargoCmb = cmbCargoId.getItems().get(i).toString();
             String cargoTbl = ((Empleado)tblEmpleados.getSelectionModel().getSelectedItem()).getCargo();
             if(cargoCmb.equals(cargoTbl)){
@@ -112,8 +112,7 @@ public class MenuEmpleadosController implements Initializable {
         return index;
     }
         
-    public void cargarDatosEditar(){
-        
+    public void cargarDatosEditar(){       
         Empleado ts = (Empleado) tblEmpleados.getSelectionModel().getSelectedItem();
         if(ts != null){
             tfEmpleadoId.setText(Integer.toString(ts.getEmpleadoId()));

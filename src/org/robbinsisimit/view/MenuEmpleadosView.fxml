@@ -15,7 +15,7 @@
          <image>
             <Image url="@../image/Menu%20Empleados.png" />
          </image></ImageView>
-      <TableView fx:id="tblEmpleados" layoutX="29.0" layoutY="227.0" prefHeight="342.0" prefWidth="790.0">
+      <TableView fx:id="tblEmpleados" layoutX="29.0" layoutY="227.0" onMouseClicked="#cargarDatosEditar" prefHeight="342.0" prefWidth="790.0">
         <columns>
           <TableColumn fx:id="colEmpleadoId" prefWidth="75.0" text="empleadoId" />
           <TableColumn fx:id="colNombreEmpleado" prefWidth="120.00000762939453" text="nombreEmpleado" />

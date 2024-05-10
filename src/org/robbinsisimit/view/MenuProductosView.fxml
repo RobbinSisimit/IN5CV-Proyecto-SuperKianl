@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.MenuProductosController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true" />
+      <TableView fx:id="tblProductos" layoutX="33.0" layoutY="215.0" prefHeight="350.0" prefWidth="1203.0">
+        <columns>
+          <TableColumn fx:id="colProductoId" prefWidth="69.33334732055664" text="productoId" />
+            <TableColumn fx:id="colNombre" prefWidth="104.6666488647461" text="Nombre" />
+            <TableColumn fx:id="colDescripcion" prefWidth="138.66664123535156" text="Descripcion" />
+            <TableColumn fx:id="colCantidadStokc" prefWidth="86.66668701171875" text="cantidadStack" />
+            <TableColumn fx:id="colPrecioUnitario" prefWidth="165.99996948242188" text="PrecioVentaUnitaria" />
+            <TableColumn fx:id="colPrecionMayor" prefWidth="147.33331298828125" text="precionVentaMayor" />
+            <TableColumn fx:id="colPrecionVenta" prefWidth="133.99993896484375" text="PrecioCompra" />
+            <TableColumn fx:id="colImage" prefWidth="96.0" text="image" />
+            <TableColumn fx:id="colDistribuidoraId" prefWidth="130.6666259765625" text="distribuidoraId" />
+            <TableColumn fx:id="colCategoriaProducto" prefWidth="133.99993896484375" text="CategoriaCompra" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
