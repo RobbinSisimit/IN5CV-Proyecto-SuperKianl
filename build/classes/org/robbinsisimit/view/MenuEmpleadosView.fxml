@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.robbinsisimit.controller.MenuEmpleadosController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.MenuEmpleadosController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Menu%20Empleados.png" />
+         </image></ImageView>
       <TableView fx:id="tblEmpleados" layoutX="29.0" layoutY="227.0" prefHeight="342.0" prefWidth="790.0">
         <columns>
           <TableColumn fx:id="colEmpleadoId" prefWidth="75.0" text="empleadoId" />
@@ -21,5 +27,16 @@
             <TableColumn fx:id="colEncargadoId" text="encargadoId" />
         </columns>
       </TableView>
+      <ComboBox fx:id="cmbCargoId" layoutX="496.0" layoutY="79.0" prefHeight="36.0" prefWidth="191.0" />
+      <ComboBox fx:id="cmbEncargado" layoutX="705.0" layoutY="79.0" prefHeight="36.0" prefWidth="191.0" />
+      <TextField fx:id="tfEmpleadoId" editable="false" layoutX="38.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" promptText="Id Empleados" />
+      <TextField fx:id="tfNombreEmpleado" layoutX="218.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" promptText="Nombre" />
+      <TextField fx:id="tfApellidoEmpleado" layoutX="404.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" promptText="Apellido" />
+      <TextField fx:id="tfSueldp" layoutX="579.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" promptText="Sueldo" />
+      <TextField fx:id="tfHoraEntrada" layoutX="753.0" layoutY="131.0" prefHeight="36.0" prefWidth="165.0" promptText="horaentreda" />
+      <TextField fx:id="tfHoraSalida" layoutX="38.0" layoutY="182.0" prefHeight="36.0" prefWidth="165.0" promptText="HoraSalida" />
+      <Button fx:id="btnGuardar" layoutX="867.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="87.0" text="Guardar" />
+      <Button fx:id="btnRegresar" layoutX="969.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="87.0" text="Regresar" />
+      <Button fx:id="btnVaciar" layoutX="881.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="87.0" text="Vaciar Form" />
    </children>
 </AnchorPane>

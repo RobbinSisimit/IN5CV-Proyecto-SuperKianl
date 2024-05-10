@@ -11,15 +11,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.robbinsisimit.dao.Conexion;
 import org.robbinsisimit.model.Cargo;
@@ -42,13 +47,44 @@ public class MenuEmpleadosController implements Initializable {
     @FXML
     TableColumn colEmpleadoId, colNombreEmpleado, colApellidoEmpleado, colSueldo, colHoraEntrada,colHoraSalida,colCargoId,colEncargadoId;
     @FXML
-    ComboBox cmbCargoId;
+    ComboBox cmbCargoId, cmbEncargado;
+    @FXML
+    Button btnGuardar, btnRegresar, btnVaciar;
+    @FXML
+    TextField tfEmpleadoId, tfNombreEmpleado, tfApellidoEmpleado, tfSueldp, tfHoraEntrada, tfHoraSalida;
     
+    @FXML
+    public void handleButtonAction(ActionEvent event){
+        if(event.getSource() == btnRegresar){
+            stage.menuPrincipalView();
+        }else if(event.getSource() == btnGuardar){
+            if(tfEmpleadoId.getText().equals("")){
+                agregarEmpleado();
+                cargarDatos();
+            }else{
+                editarEmpleado();
+                cargarDatos();
+            }
+        }else if(event.getSource() == btnVaciar){
+            vaciarCampos();
+        }
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cmbCargoId.setItems(listarCargo());
         cargarDatos();
     } 
+    
+    public void vaciarCampos(){
+        tfEmpleadoId.clear();
+        tfNombreEmpleado.clear();
+        tfApellidoEmpleado.clear();
+        tfSueldp.clear();
+        tfHoraEntrada.clear();
+        tfHoraSalida.clear();
+        cmbCargoId.getSelectionModel().clearSelection();
+    }
     
     public void cargarDatos(){
         tblEmpleados.setItems(listarEmpleados());
@@ -75,6 +111,22 @@ public class MenuEmpleadosController implements Initializable {
         }
         return index;
     }
+        
+    public void cargarDatosEditar(){
+        
+        Empleado ts = (Empleado) tblEmpleados.getSelectionModel().getSelectedItem();
+        if(ts != null){
+            tfEmpleadoId.setText(Integer.toString(ts.getEmpleadoId()));
+            tfNombreEmpleado.setText(ts.getNombreEmpleado());
+            tfApellidoEmpleado.setText(ts.getApellidoEmpleado());
+            tfSueldp.setText(Double.toString(ts.getSueldo()));
+            tfHoraEntrada.setText(ts.getHoraEntrada().toString());
+            tfHoraSalida.setText(ts.getHoraSalida().toString());
+            cmbCargoId.getSelectionModel().select(obtenerIndexCargo());
+            
+        }
+    }
+    
     
     public ObservableList<Empleado> listarEmpleados(){
         ArrayList<Empleado> empleados = new ArrayList<>();
@@ -154,6 +206,87 @@ public class MenuEmpleadosController implements Initializable {
         }
         return FXCollections.observableList(cargos);
     }
+    
+    public void agregarEmpleado(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
+        Time horaEntrada = null;
+        Time  horaSalida = null;
+        try{
+            horaEntrada = new Time(sdf.parse(tfHoraEntrada.getText()).getTime());
+            horaSalida = new Time(sdf.parse(tfHoraSalida.getText()).getTime());
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql ="call sp_AgregarEmpleado(?,?,?,?,?,?)";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, tfNombreEmpleado.getText());
+            statement.setString(2, tfApellidoEmpleado.getText());
+            statement.setDouble(3, Double.parseDouble(tfSueldp.getText()));
+            statement.setTime(4, horaEntrada);
+            statement.setTime(5, horaSalida);
+            statement.setInt(6,((Cargo)cmbCargoId.getSelectionModel().getSelectedItem()).getCargoId());
+            statement.execute();
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+    
+    public void editarEmpleado(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
+        Time horaEntrada = null;
+        Time  horaSalida = null;
+        try{
+            horaEntrada = new Time(sdf.parse(tfHoraEntrada.getText()).getTime());
+            horaSalida = new Time(sdf.parse(tfHoraSalida.getText()).getTime());
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_EditarEmpleado(?,?,?,?,?,?,?)";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, Integer.parseInt(tfEmpleadoId.getText()));
+            statement.setString(2, tfNombreEmpleado.getText());
+            statement.setString(3, tfApellidoEmpleado.getText());
+            statement.setDouble(4,Double.parseDouble(tfSueldp.getText()));
+            statement.setTime(4, horaEntrada);
+            statement.setTime(5, horaSalida);
+            statement.setInt(6,((Cargo)cmbCargoId.getSelectionModel().getSelectedItem()).getCargoId());
+            statement.setInt(7, 1);
+            statement.execute();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+    
     public Main getStage() {
         return stage;
     }
