@@ -149,7 +149,7 @@ public class MenuTicketSoporteController implements Initializable {
         }finally{
             try{
                 if(resultSet != null){
-                    resultSet.close();
+                    resultSet.close(); 
                 }
                 if(statement != null){
                     statement.close();

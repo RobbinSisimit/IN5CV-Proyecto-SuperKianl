@@ -150,6 +150,11 @@ public class Producto {
         this.categoriaProducto = categoriaProducto;
     }
 
+    @Override
+    public String toString() {
+        return  "|" + productoId + "|" + nombreProducto + "|" + descripcionProducto + "|" + cantidadStock + "|" + precioVentaUnitario + "|" + precioVentaMayor + "|" + precioCompra + "|" + imagenProducto + "|" + distribuidorId ;
+    }
+
     
     
 }

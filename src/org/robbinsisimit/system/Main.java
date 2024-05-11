@@ -27,6 +27,7 @@ import org.robbinsisimit.controller.MenuComprasController;
 import org.robbinsisimit.controller.MenuDistribuidoresController;
 import org.robbinsisimit.controller.MenuEmpleadosController;
 import org.robbinsisimit.controller.MenuProductosController;
+import org.robbinsisimit.controller.MenuPromocionesController;
 
 
 /**
@@ -201,6 +202,16 @@ public class Main extends Application {
         try{
             MenuProductosController menuProductoController = (MenuProductosController)switchScene("MenuProductosView.fxml",1300, 600);
             menuProductoController.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void menuPromocionView(){
+        try{
+            MenuPromocionesController menuPromocionesView = (MenuPromocionesController)switchScene("MenuPromocionesView.fxml" , 1000, 600);
+            menuPromocionesView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
