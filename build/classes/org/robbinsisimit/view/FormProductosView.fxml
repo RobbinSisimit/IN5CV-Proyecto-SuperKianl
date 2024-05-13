@@ -5,13 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.robbinsisimit.controller.FormProductosController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.FormProductosController">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="700.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FOrmProductom.png" />
+         </image></ImageView>
       <TextField fx:id="tfProductoId" layoutX="54.0" layoutY="191.0" prefHeight="33.0" prefWidth="115.0" promptText="IDProducto" />
       <TextField fx:id="tfStock" layoutX="240.0" layoutY="191.0" prefHeight="33.0" prefWidth="115.0" promptText="NumeroStock" />
       <TextField fx:id="tfNombre" layoutX="37.0" layoutY="316.0" prefHeight="33.0" prefWidth="187.0" promptText="Nombre" />
@@ -26,5 +29,6 @@
       <Button fx:id="btnCancelar" layoutX="308.0" layoutY="610.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="93.0" text="Cancelar" />
       <ComboBox fx:id="cmbDistribuidor" layoutX="204.0" layoutY="427.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbCategoria" layoutX="375.0" layoutY="427.0" prefWidth="150.0" />
+      <TextField layoutX="610.0" layoutY="144.0" text="Suelte la imagen aqui" />
    </children>
 </AnchorPane>

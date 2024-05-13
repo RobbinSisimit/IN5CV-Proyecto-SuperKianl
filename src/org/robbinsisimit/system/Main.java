@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import org.robbinsisimit.controller.FormCargosController;
 import org.robbinsisimit.controller.FormCategoriaProductosController;
 import org.robbinsisimit.controller.FormClientesController;
-import org.robbinsisimit.controller.FormComprasController;
 import org.robbinsisimit.controller.FormDistribuidoresController;
 import org.robbinsisimit.controller.FormProductosController;
 import org.robbinsisimit.controller.MenuClientesController;
@@ -87,7 +86,7 @@ public class Main extends Application {
     
     public void menuComprasView(){
         try{
-            MenuComprasController menuCompraView = (MenuComprasController)switchScene("MenuComprasView.fxml", 900 , 700);
+            MenuComprasController menuCompraView = (MenuComprasController)switchScene("MenuComprasView.fxml", 1000 , 700);
             menuCompraView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -146,16 +145,6 @@ public class Main extends Application {
         }
     }
     
-    public void formComprasView(int op){
-        try{
-            FormComprasController formComprasView = (FormComprasController)switchScene("FormComprasView.fxml", 400, 550);
-            formComprasView.setOp(op);
-            formComprasView.setStage(this);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
     
     public void formDistribuidoresView(int op){
         try{

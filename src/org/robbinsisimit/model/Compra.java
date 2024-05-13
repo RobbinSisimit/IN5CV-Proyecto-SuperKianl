@@ -15,6 +15,7 @@ public class Compra {
     private int compraId;
     private Date fechaCompra;
     private Double totalCompra;
+    
 
     public Compra() {
     }
