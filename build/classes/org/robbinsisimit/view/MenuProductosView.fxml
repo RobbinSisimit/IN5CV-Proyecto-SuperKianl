@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.MenuProductosController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.MenuProductosController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true" />
-      <TableView fx:id="tblProductos" layoutX="33.0" layoutY="215.0" prefHeight="350.0" prefWidth="1203.0">
+      <ImageView fitHeight="600.0" fitWidth="1150.0" pickOnBounds="true" preserveRatio="true" />
+      <TableView fx:id="tblProductos" layoutX="10.0" layoutY="215.0" prefHeight="350.0" prefWidth="1110.0">
         <columns>
           <TableColumn fx:id="colProductoId" prefWidth="69.33334732055664" text="productoId" />
             <TableColumn fx:id="colNombre" prefWidth="104.6666488647461" text="Nombre" />
             <TableColumn fx:id="colDescripcion" prefWidth="138.66664123535156" text="Descripcion" />
             <TableColumn fx:id="colCantidadStokc" prefWidth="86.66668701171875" text="cantidadStack" />
-            <TableColumn fx:id="colPrecioUnitario" prefWidth="165.99996948242188" text="PrecioVentaUnitaria" />
-            <TableColumn fx:id="colPrecionMayor" prefWidth="147.33331298828125" text="precionVentaMayor" />
-            <TableColumn fx:id="colPrecionVenta" prefWidth="133.99993896484375" text="PrecioCompra" />
-            <TableColumn fx:id="colImage" prefWidth="96.0" text="image" />
-            <TableColumn fx:id="colDistribuidoraId" prefWidth="130.6666259765625" text="distribuidoraId" />
-            <TableColumn fx:id="colCategoriaProducto" prefWidth="133.99993896484375" text="CategoriaCompra" />
+            <TableColumn fx:id="colPrecioUnitario" prefWidth="124.00003051757812" text="PrecioVentaUnitaria" />
+            <TableColumn fx:id="colPrecionMayor" prefWidth="134.0" text="precionVentaMayor" />
+            <TableColumn fx:id="colPrecionVenta" prefWidth="125.33331298828125" text="PrecioCompra" />
+            <TableColumn fx:id="colImage" prefWidth="116.0" text="image" />
+            <TableColumn fx:id="colDistribuidoraId" prefWidth="102.0" text="distribuidoraId" />
+            <TableColumn fx:id="colCategoriaProducto" prefWidth="104.6666259765625" text="CategoriaCompra" />
         </columns>
       </TableView>
+      <Button fx:id="btnAgregar" layoutX="600.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="44.0" prefWidth="105.0" text="Agregar" />
+      <Button fx:id="btnRegresar" layoutX="735.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="44.0" prefWidth="105.0" text="Regresar" />
+      <Button fx:id="btnEditar" layoutX="477.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="44.0" prefWidth="105.0" text="Editar" />
+      <ImageView fx:id="imgMostrar" fitHeight="116.0" fitWidth="246.0" layoutX="884.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="tfProductoIdBuscar" layoutX="869.0" layoutY="159.0" prefHeight="44.0" prefWidth="156.0" />
+      <Button fx:id="btnBuscar" layoutX="1025.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="44.0" prefWidth="105.0" text="Buscar" />
+      <Label fx:id="lblNombreProducto" layoutX="987.0" layoutY="132.0" prefHeight="20.0" prefWidth="105.0" text="Label" />
    </children>
 </AnchorPane>

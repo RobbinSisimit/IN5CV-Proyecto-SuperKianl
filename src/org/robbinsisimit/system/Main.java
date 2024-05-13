@@ -18,6 +18,7 @@ import org.robbinsisimit.controller.FormCategoriaProductosController;
 import org.robbinsisimit.controller.FormClientesController;
 import org.robbinsisimit.controller.FormComprasController;
 import org.robbinsisimit.controller.FormDistribuidoresController;
+import org.robbinsisimit.controller.FormProductosController;
 import org.robbinsisimit.controller.MenuClientesController;
 import org.robbinsisimit.controller.MenuPrincipalController;
 import org.robbinsisimit.controller.MenuTicketSoporteController;
@@ -134,6 +135,17 @@ public class Main extends Application {
         }
     }
     
+    public void formProductoView(int op){
+        try{
+            FormProductosController formProductoView = (FormProductosController)switchScene("FormProductosView.fxml", 900, 700);
+            formProductoView.setOp(op);
+            formProductoView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
     public void formComprasView(int op){
         try{
             FormComprasController formComprasView = (FormComprasController)switchScene("FormComprasView.fxml", 400, 550);
@@ -200,7 +212,7 @@ public class Main extends Application {
     
     public void menuProductoView(){
         try{
-            MenuProductosController menuProductoController = (MenuProductosController)switchScene("MenuProductosView.fxml",1300, 600);
+            MenuProductosController menuProductoController = (MenuProductosController)switchScene("MenuProductosView.fxml",1150, 600);
             menuProductoController.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
