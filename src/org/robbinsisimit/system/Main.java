@@ -201,7 +201,7 @@ public class Main extends Application {
     
     public void menuProductoView(){
         try{
-            MenuProductosController menuProductoController = (MenuProductosController)switchScene("MenuProductosView.fxml",1150, 600);
+            MenuProductosController menuProductoController = (MenuProductosController)switchScene("MenuProductosView.fxml",1300, 600);
             menuProductoController.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());

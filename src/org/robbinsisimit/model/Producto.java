@@ -5,6 +5,8 @@
  */
 package org.robbinsisimit.model;
 
+import java.sql.Blob;
+
 /**
  *
  * @author robin
@@ -17,13 +19,16 @@ public class Producto {
     private double precioVentaUnitario;
     private double precioVentaMayor;
     private double precioCompra;
-    private byte[] imagenProducto;
+    private Blob imagenProducto;
     private int distribuidorId;
     private String distribuidor;
-    private int categoriaProductosId;
-    private String categoriaProductos;
+    private int categoriaProductoId;
+    private String categoriaProducto;
 
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, byte[] imagenProducto, int distribuidorId, int categoriaProductosId) {
+    public Producto() {
+    }
+
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, int distribuidorId, int categoriaProductoId) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
@@ -33,10 +38,10 @@ public class Producto {
         this.precioCompra = precioCompra;
         this.imagenProducto = imagenProducto;
         this.distribuidorId = distribuidorId;
-        this.categoriaProductosId = categoriaProductosId;
+        this.categoriaProductoId = categoriaProductoId;
     }
 
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, byte[] imagenProducto, String distribuidor, String categoriaProductos) {
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, String distribuidor, String categoriaProducto) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
@@ -46,8 +51,26 @@ public class Producto {
         this.precioCompra = precioCompra;
         this.imagenProducto = imagenProducto;
         this.distribuidor = distribuidor;
-        this.categoriaProductos = categoriaProductos;
+        this.categoriaProducto = categoriaProducto;
     }
+
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, String distribuidor, String categoriaProducto) {
+        this.productoId = productoId;
+        this.nombreProducto = nombreProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.cantidadStock = cantidadStock;
+        this.precioVentaUnitario = precioVentaUnitario;
+        this.precioVentaMayor = precioVentaMayor;
+        this.precioCompra = precioCompra;
+        this.distribuidor = distribuidor;
+        this.categoriaProducto = categoriaProducto;
+    }
+
+    public Producto(Blob imagenProducto) {
+        this.imagenProducto = imagenProducto;
+    }
+    
+    
 
     public int getProductoId() {
         return productoId;
@@ -105,11 +128,11 @@ public class Producto {
         this.precioCompra = precioCompra;
     }
 
-    public byte[] getImagenProducto() {
+    public Blob getImagenProducto() {
         return imagenProducto;
     }
 
-    public void setImagenProducto(byte[] imagenProducto) {
+    public void setImagenProducto(Blob imagenProducto) {
         this.imagenProducto = imagenProducto;
     }
 
@@ -129,29 +152,27 @@ public class Producto {
         this.distribuidor = distribuidor;
     }
 
-    public int getCategoriaProductosId() {
-        return categoriaProductosId;
+    public int getCategoriaProductoId() {
+        return categoriaProductoId;
     }
 
-    public void setCategoriaProductosId(int categoriaProductosId) {
-        this.categoriaProductosId = categoriaProductosId;
+    public void setCategoriaProductoId(int categoriaProductoId) {
+        this.categoriaProductoId = categoriaProductoId;
     }
 
-    public String getCategoriaProductos() {
-        return categoriaProductos;
+    public String getCategoriaProducto() {
+        return categoriaProducto;
     }
 
-    public void setCategoriaProductos(String categoriaProductos) {
-        this.categoriaProductos = categoriaProductos;
+    public void setCategoriaProducto(String categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "productoId=" + productoId + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", cantidadStock=" + cantidadStock + ", precioVentaUnitario=" + precioVentaUnitario + ", precioVentaMayor=" + precioVentaMayor + ", precioCompra=" + precioCompra + ", imagenProducto=" + imagenProducto + ", distribuidorId=" + distribuidorId + ", distribuidor=" + distribuidor + ", categoriaProductosId=" + categoriaProductosId + ", categoriaProductos=" + categoriaProductos + '}';
+        return "ID =" + productoId + ", nombre" + nombreProducto ;
     }
 
-    public String getProducto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

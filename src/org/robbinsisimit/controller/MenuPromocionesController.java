@@ -6,6 +6,7 @@
 package org.robbinsisimit.controller;
 
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -181,7 +182,7 @@ public class MenuPromocionesController implements Initializable {
                 double precioVentaUnitario = resultSet.getDouble("precioVentaUnitario");
                 double precioVentaMayor = resultSet.getDouble("precioVentaMayor");
                 double precioCompra = resultSet.getDouble("precioCompra");
-                byte[] imagenProducto = resultSet.getBytes("imagenProducto");
+                Blob imagenProducto = resultSet.getBlob("imagenProducto");
                 String distribuidor = resultSet.getString("Distribuidores");
                 String categoriaProductos = resultSet.getString("Categoria");
                 productos.add(new Producto(productoId,nombreProducto,descripcionProducto,cantidadStock,precioVentaUnitario,precioVentaMayor,precioCompra,imagenProducto,distribuidor,categoriaProductos));
