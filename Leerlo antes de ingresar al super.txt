@@ -1,0 +1,1 @@
+Crear primero un Usuario de nivelAcceso admin ya que mi código al momento de de ejecutar va ir al menuEmpleados para e cree un empledo y poderle asignar un nuevo usuario de nivelAcceso usuario y solo eso seria :D
