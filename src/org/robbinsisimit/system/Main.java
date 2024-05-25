@@ -26,8 +26,11 @@ import org.robbinsisimit.controller.MenuCategoriaProductosController;
 import org.robbinsisimit.controller.MenuComprasController;
 import org.robbinsisimit.controller.MenuDistribuidoresController;
 import org.robbinsisimit.controller.MenuEmpleadosController;
+import org.robbinsisimit.controller.MenuLoginController;
 import org.robbinsisimit.controller.MenuProductosController;
 import org.robbinsisimit.controller.MenuPromocionesController;
+import org.robbinsisimit.controller.MenuRegistrarController;
+import org.robbinsisimit.controller.MenuUsuarioController;
 
 
 /**
@@ -43,7 +46,7 @@ public class Main extends Application {
     public void start(Stage stage){
         this.stage = stage;
         stage.setTitle("superKianl");
-        menuPrincipalView();
+        menuEmpleadoView();
         stage.show();
     }
     
@@ -61,6 +64,36 @@ public class Main extends Application {
         
         resultado = (Initializable)loader.getController();
         return resultado;
+    }
+    
+    public void loginView(){
+        try{
+            MenuLoginController menuLoginController = (MenuLoginController)switchScene("MenuLoginView.fxml", 450, 650);
+            menuLoginController.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void UserView(){
+        try{
+            MenuUsuarioController menuUsuarioController = (MenuUsuarioController)switchScene("MenuUsuarioView.fxml", 450, 650);
+            menuUsuarioController.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void RegistrarView(){
+        try{
+            MenuRegistrarController menuRegistrarController = (MenuRegistrarController)switchScene("MenuRegistrarView.fxml", 400, 700);
+            menuRegistrarController.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     public void menuPrincipalView(){

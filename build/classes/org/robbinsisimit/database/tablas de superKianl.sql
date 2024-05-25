@@ -20,19 +20,6 @@ create table Cargos(
     primary key PK_cargoId(cargoId)
 );
  
-create table Empleados(
-	empleadoId int not null auto_increment,
-    nombreEmpleado varchar(30) not null,
-    apellidoEmpleado varchar(30) not null,
-    sueldo decimal(10,2) not null,
-    horaEntrada Time not null,
-    horaSalida Time not null,
-    cargoId int not null,
-    encargadoId int,
-    primary key PK_empleadoId(empleadoId),
-    constraint FK_Empleados_Cargos foreign key(cargoId) references Cargos (cargoId),
-    constraint FK_encargadoId foreign key(encargadoId) references Empleados(empleadoId)
-);
  
 create table Distribuidores(
 	distribuidorId int not null auto_increment,
@@ -58,6 +45,19 @@ create table Compras(
     primary key PK_compraId(compraId)
 );
  
+ create table Empleados(
+	empleadoId int not null auto_increment,
+    nombreEmpleado varchar(30) not null,
+    apellidoEmpleado varchar(30) not null,
+    sueldo decimal(10,2) not null,
+    horaEntrada Time not null,
+    horaSalida Time not null,
+    cargoId int not null,
+    encargadoId int,
+    primary key PK_empleadoId(empleadoId),
+    constraint FK_Empleados_Cargos foreign key(cargoId) references Cargos (cargoId),
+    constraint FK_encargadoId foreign key(encargadoId) references Empleados(empleadoId)
+);
  
  create table Facturas(
 	facturaId int not null auto_increment,
@@ -92,14 +92,14 @@ create table Productos(
     precioVentaUnitario decimal(10,2) not null,
     precioVentaMayor decimal(10,2) not null,
     precioCompra decimal(10,2) not null,
-    imagenProducto blob,
+    imagenProducto LONGBLOB,
     distribuidorId int(11) not null,
     categoriaProductosId int(11) not null,
     primary key PK_productoId(productoId),
     constraint FK_Productos_Distribuidores foreign key (distribuidorId) references Distribuidores(distribuidorId),
     constraint FK_Productos_CategoriaProductos foreign key(categoriaProductosId) references CategoriaProductos(categoriaProductosId)
 );
- 
+
 create table Promociones(
 	promocionId int(11) not null auto_increment,
     precioPromocion decimal(10,2) not null,
@@ -129,4 +129,45 @@ create table DetalleFactura(
     constraint FK_DetalleFacturas_Facturas foreign key (facturaId) references Facturas(facturaId),
     constraint FK_DetalleFacturas_Productos foreign key (productoId) references Productos(productoId)
 );
+
+create table NivelesAcceso(
+	nivelAccesoId int not null auto_increment,
+    nivelAcceso varchar(40),
+    primary key PK_nivelAccesoId(nivelAccesoId)
+);
+
+create table Usuarios(
+	usuarioId int not null auto_increment,
+    usuario varchar(30) not null,
+    contrasenia varchar(100) not null,
+    nivelAccesoId int not null,
+    empleadoId int not null,
+    primary key usuarioId(usuarioId),
+	constraint FK_Usuarios_NivelesAcceso foreign key (nivelAccesoId)
+		references NivelesAcceso(nivelAccesoId),
+	constraint FK_Usuarios_Empleados foreign key (empleadoId)
+		references Empleados(empleadoId)
+);
+
+-- agregar usuario 
+DELIMITER $$
+create procedure agregarUsuairos(us varchar(30), contra varchar(100), nivAcceId int, empId int)
+begin
+		insert into Usuarios(usuario, contrasenia, nivelAccesoId, empleadoId) values
+			(us, contra, nivAcceId, empId );
+end $$
+DELIMITER ;
+call agregarUsuairos('rsisimit', '1234', 1, 2);
+
+DELIMITER $$
+create procedure buscarUsuarios(us varchar(30))
+begin
+	select * from Usuarios
+		where usuario = us;
+end $$
+DELIMITER ;
+
+select * from nivelesAcceso;
+select * from empleados;
+select * from usuarios;
 set  global time_zone = '-6:00';

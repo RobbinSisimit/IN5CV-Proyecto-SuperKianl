@@ -8,6 +8,7 @@ package org.robbinsisimit.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import org.robbinsisimit.system.Main;
 
 /**
  * FXML Controller class
@@ -15,13 +16,20 @@ import javafx.fxml.Initializable;
  * @author robin
  */
 public class MenuUsuarioController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    private Main stage;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
+
+    public Main getStage() {
+        return stage;
+    }
+
+    public void setStage(Main stage) {
+        this.stage = stage;
+    }
+    
     
 }

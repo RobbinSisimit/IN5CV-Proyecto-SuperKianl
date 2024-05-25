@@ -9,7 +9,7 @@ DELIMITER $$
 			(nom,ape,tel,dir, nit);
     end $$
 DELIMITER ;
-call sp_agregarCliente('Thaysa', 'Santos', '2364-5678','San cristobal', 'CF');
+-- call sp_agregarCliente('Thaysa', 'Santos', '2364-5678','San cristobal', 'CF');
 
 -- call sp_agregarCliente();
 -- listar
@@ -68,8 +68,8 @@ DELIMITER $$
 			(nomCar, desCar);
     end $$
 DELIMITER ;
-call sp_agregarCargo('carnicero','Trabaja en el frio');
--- select * from Cargos;
+-- call sp_agregarCargo('carnicero','Trabaja en el frio');
+
 
 
 -- listar
@@ -121,7 +121,7 @@ DELIMITER $$
         end $$
 DELIMITER ;
  
-call  sp_AgregarEmpleado('Sergio', 'Santos', 150.50, '9:8:10', '10:10:10', 1);
+-- call  sp_AgregarEmpleado('Sergio', 'Santos', 150.50, '9:8:10', '10:10:10', 1);
  -- Listar
 DELIMITER $$
 create procedure sp_ListarEmpleados()
@@ -179,8 +179,8 @@ DELIMITER $$
 			(nomDis, dirDis, nitDis, telDis, web);
     end $$
 DELIMITER ;
-call sp_agregarDistribuidores('pastel','ciudad','321654','333-333','www');
--- select * from Distribuidores;
+-- call sp_agregarDistribuidores('pastel','ciudad','321654','333-333','www');
+
 
 -- listar
 delimiter $$
@@ -233,7 +233,7 @@ DELIMITER $$
 			(nomCat, desCat);
     end $$
 DELIMITER ;
-call sp_agregarCategoriaProducto('Cocina',' banquet');
+-- call sp_agregarCategoriaProducto('Cocina',' banquet');
 
 -- listar
 delimiter $$
@@ -243,6 +243,7 @@ create procedure sp_listarCategoriaProductos()
     end $$
 delimiter ;
 -- call sp_listarCategoriaProductos();
+
 -- eliminar
 delimiter $$
 create procedure sp_eliminarCategoriaProducto(catId int)
@@ -289,9 +290,9 @@ create procedure sp_agregarCompra(in fecCom date, in can int, in proId int)
 			(fecCom);
             
 		set nuevaCompraId = last_insert_id();
+        call sp_agregarDetalleCompra(can,proId,nuevaCompraId);
     end $$
 DELIMITER ;
-call sp_agregarDetalleCompra(can,proId,nuevaCompraId);
  
  -- listar
 DELIMITER $$
@@ -344,7 +345,8 @@ begin
 		(fech,hor,cliId,empId,tot);
 end $$
 DELIMITER ;
-call sp_AgregarFactura('12-4-12','12:34:55',1,1,'1330');
+-- call sp_AgregarFactura('12-4-12','12:34:55',1,1,'1330');
+
 -- Listar
 DELIMITER $$
 create procedure sp_ListarFacturas()
@@ -463,7 +465,7 @@ begin
     join CategoriaProductos cp on p.categoriaProductosId = cp.categoriaProductosId;
 end $$
 DELIMITER ;
-call sp_ListarProducto();
+-- call sp_ListarProducto();
 
 
 -- Eliminar
@@ -529,7 +531,7 @@ create procedure sp_agregarPromociones(in prePro decimal(10, 2), in descPro varc
 			(prePro, descPro, feIni, feFina, proId);
     end $$
 delimiter ;
-call sp_agregarPromociones(1200.50, 'descuento en carne de res', '2023-4-2', '2023-5-9', 1);
+-- call sp_agregarPromociones(1200.50, 'descuento en carne de res', '2023-4-2', '2023-5-9', 1);
 -- select * from Promociones;
  
 -- listar
@@ -582,19 +584,25 @@ delimiter
 -- ---------------- detalleCompra
  
 DELIMITER $$
-	create procedure sp_AgregarDetalleCompra(cantC int, proId int,comId int)
-    begin
-		insert into DetalleCompra(cantidadCompra,productoId,compraId) values
-			(cantC,proId,comId);
+create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
+	begin 
+		insert into DetalleCompra(cantidadCompra, productoId, compraId)values
+			(canC, proId, comId);
     end $$
 DELIMITER ;
  
 DELIMITER $$
 create procedure sp_ListarDetalleCompra()
-    begin
-		select* from DetalleCompra;
-    end$$
+    begin 
+		select C.compraId, C.fechaCompra, DE.cantidadCompra,
+		concat(P.nombreProducto, ' | ', P.precioCompra) as 'producto',
+        C.totalCompra from DetalleCompra DE
+        join Compras C on C.compraId = DE.compraId
+        left join Productos P on P.productoId = DE.productoId;
+        
+    end $$
 DELIMITER ;
+call sp_ListarDetalleCompra();
  
 DELIMITER $$
 	create procedure sp_EliminarDetalleCompra(dtId int)
@@ -690,8 +698,3 @@ create procedure sp_AsignarEncargado(empId int, encId int)
 DELIMITER ;
 -- call sp_AsignarEncargado(2,1);
  
-
- -- select * from Empleados;
-select * from Productos; 
--- select * from Clientes;
--- select * from Distribuidores;

@@ -38,6 +38,7 @@ import org.robbinsisimit.system.Main;
  */
 public class MenuEmpleadosController implements Initializable {
     private Main stage;
+    private int op;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
@@ -61,6 +62,7 @@ public class MenuEmpleadosController implements Initializable {
             if(tfEmpleadoId.getText().equals("")){
                 agregarEmpleado();
                 cargarDatos();
+                stage.loginView();
             }else{
                 editarEmpleado();
                 cargarDatos();
@@ -292,5 +294,11 @@ public class MenuEmpleadosController implements Initializable {
     public void setStage(Main stage) {
         this.stage = stage;
     }
+
+    public void setOp(int op) {
+        this.op = op;
+    }
+
+
     
 }
