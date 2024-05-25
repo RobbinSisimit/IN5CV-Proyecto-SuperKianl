@@ -170,7 +170,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "ID =" + productoId + ", nombre" + nombreProducto ;
+        return "ID =" + productoId + " | " + nombreProducto ;
     }
 
     

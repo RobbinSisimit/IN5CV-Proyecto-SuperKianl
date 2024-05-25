@@ -95,7 +95,7 @@ public class DetalleCompra extends Compra{
 
     @Override
     public String toString() {
-        return "DetalleCompra{" + "detalleCompraId=" + detalleCompraId + ", cantidadCompra=" + cantidadCompra + ", productoId=" + productoId + ", producto=" + producto + ", compraid=" + compraid + ", compra=" + compra + '}';
+        return "ID " + detalleCompraId + " | " + cantidadCompra ;
     }
     
 }

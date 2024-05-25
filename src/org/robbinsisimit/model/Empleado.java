@@ -132,7 +132,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "empId " + empleadoId + "  nomEmp " + nombreEmpleado + " apeEmp " + apellidoEmpleado ;
+        return "ID  " + empleadoId + "  |  " + nombreEmpleado + " |  " + apellidoEmpleado ;
     }
 
     

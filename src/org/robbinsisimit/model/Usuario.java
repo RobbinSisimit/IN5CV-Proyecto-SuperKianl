@@ -69,7 +69,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return  "usuarioId| " + usuarioId + "  usuario|" + usuario ;
+        return  "ID | " + usuarioId + "  |  " + usuario ;
     }
     
     

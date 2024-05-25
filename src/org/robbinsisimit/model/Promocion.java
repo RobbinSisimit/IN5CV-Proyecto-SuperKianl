@@ -99,7 +99,7 @@ public class Promocion {
 
     @Override
     public String toString() {
-        return  "promocionId=" + promocionId + ", precioPromocion=" + precioPromocion + ", descripcionPromocion=" + descripcionPromocion + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", productoId=" + productoId + ", producto=" + producto + '}';
+        return  "ID " + promocionId + " | " + precioPromocion + " | " + descripcionPromocion ;
     }
     
     
