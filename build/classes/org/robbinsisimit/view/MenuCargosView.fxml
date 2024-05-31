@@ -45,6 +45,11 @@
          </children>
       </GridPane>
       <TextField fx:id="tfCargoId" layoutX="564.0" layoutY="74.0" prefHeight="37.0" prefWidth="232.0" />
-      <Button fx:id="btnBuscar" layoutX="795.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="37.0" prefWidth="54.0" text="Button" />
+      <Button fx:id="btnBuscar" layoutX="796.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="37.0" prefWidth="54.0" />
+      <ImageView fitHeight="29.0" fitWidth="54.0" layoutX="798.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icono%20lupa.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

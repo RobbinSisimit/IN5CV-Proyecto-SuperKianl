@@ -30,7 +30,6 @@ import org.robbinsisimit.controller.MenuLoginController;
 import org.robbinsisimit.controller.MenuProductosController;
 import org.robbinsisimit.controller.MenuPromocionesController;
 import org.robbinsisimit.controller.MenuRegistrarController;
-import org.robbinsisimit.controller.MenuUsuarioController;
 
 
 /**
@@ -46,7 +45,7 @@ public class Main extends Application {
     public void start(Stage stage){
         this.stage = stage;
         stage.setTitle("superKianl");
-        menuEmpleadoView();
+        loginView();
         stage.show();
     }
     
@@ -76,16 +75,7 @@ public class Main extends Application {
         }
     }
     
-    public void UserView(){
-        try{
-            MenuUsuarioController menuUsuarioController = (MenuUsuarioController)switchScene("MenuUsuarioView.fxml", 450, 650);
-            menuUsuarioController.setStage(this);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
+      
     public void RegistrarView(){
         try{
             MenuRegistrarController menuRegistrarController = (MenuRegistrarController)switchScene("MenuRegistrarView.fxml", 400, 700);

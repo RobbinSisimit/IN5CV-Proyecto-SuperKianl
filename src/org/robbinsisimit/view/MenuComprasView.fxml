@@ -48,7 +48,12 @@
       <TextField fx:id="tfCompraId" editable="false" layoutX="39.0" layoutY="204.0" prefHeight="38.0" prefWidth="169.0" promptText="Compra ID" />
       <TextField fx:id="tfCantidad" layoutX="222.0" layoutY="204.0" prefHeight="38.0" prefWidth="155.0" promptText="Cantidad" />
       <TextField fx:id="tfTotalCompra" editable="false" layoutX="403.0" layoutY="204.0" prefHeight="38.0" prefWidth="169.0" promptText="Total de Compra" />
-      <TextField fx:id="tfBuscarCompra" layoutX="500.0" layoutY="135.0" prefHeight="45.0" prefWidth="248.0" promptText="Ingrese el ID de la Compra a buscar" />
-      <Button fx:id="btnBuscar" layoutX="748.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="26.0" text="Button" />
+      <TextField fx:id="tfBuscarCompra" layoutX="500.0" layoutY="135.0" prefHeight="38.0" prefWidth="248.0" promptText="Ingrese el ID de la Compra a buscar" />
+      <Button fx:id="btnBuscar" layoutX="748.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="38.0" prefWidth="47.0" />
+      <ImageView fitHeight="30.0" fitWidth="47.0" layoutX="748.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icono%20lupa.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
