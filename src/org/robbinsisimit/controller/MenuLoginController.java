@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 import org.robbinsisimit.dao.Conexion;
 import org.robbinsisimit.model.Usuario;
 import org.robbinsisimit.system.Main;
@@ -65,10 +66,10 @@ public class MenuLoginController implements Initializable {
                             stage.menuPrincipalView();
                         }
                     }else{
-                        System.out.println("contrasenia incorrecto");
+                        JOptionPane.showMessageDialog(null,"constraseña incorrecta");
                     }
                 }else{
-                System.out.println("usuario no existente");
+                JOptionPane.showMessageDialog(null,"usario incorrecta");
                 }
             }else{
                 stage.menuPrincipalView();

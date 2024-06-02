@@ -7,9 +7,11 @@ package org.robbinsisimit.controller;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -26,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.robbinsisimit.dao.Conexion;
 import org.robbinsisimit.model.Cliente;
+import org.robbinsisimit.model.DetalleFactura;
+import org.robbinsisimit.model.Factura;
 import org.robbinsisimit.model.TicketSoporte;
 import org.robbinsisimit.system.Main;
 
@@ -41,7 +45,7 @@ public class MenuTicketSoporteController implements Initializable {
     private static ResultSet resultSet = null;
     
     @FXML
-    ComboBox cmbClientes, cmbEstatus;
+    ComboBox cmbClientes, cmbEstatus,cmbFacturas;
     
     @FXML
     Button btnRegresar, btnGuardar,btnVaciar;  
@@ -83,6 +87,7 @@ public class MenuTicketSoporteController implements Initializable {
         taDescripcion.clear();
         cmbEstatus.getSelectionModel().clearSelection();
         cmbClientes.getSelectionModel().clearSelection();
+        cmbFacturas.getSelectionModel().clearSelection();
     }
     // CARGAR DATOS ALA TABLA VIEW
     public void cargarDatos(){
@@ -108,13 +113,27 @@ public class MenuTicketSoporteController implements Initializable {
         return index;
     }
     
+    public int obtenerIndexFactura(){
+        int index = 0;
+        for(int i = 0; i >= cmbFacturas.getItems().size(); i++){
+            String facturaCmb = cmbFacturas.getItems().get(i).toString();
+            String facturaTbl = ((TicketSoporte)tblTickets.getSelectionModel().getSelectedItem()).getFactura();
+            if(facturaCmb.equals(facturaTbl)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    
     public void cargarDatosEditar(){
-        TicketSoporte ts = (TicketSoporte) tblTickets.getSelectionModel().getSelectedItem();
+        TicketSoporte ts = (TicketSoporte)tblTickets.getSelectionModel().getSelectedItem();
         if(ts != null){
             tfTicketId.setText(Integer.toString(ts.getTicketSoporteId()));
-            taDescripcion.setText(ts.getDescripcionTicket());
             cmbEstatus.getSelectionModel().select(0);
             cmbClientes.getSelectionModel().select(obtenerIndexCliente());
+            cmbFacturas.getSelectionModel().select(obtenerIndexFactura());
+            taDescripcion.setText(ts.getDescripcionTicket());
         }
     }
     
@@ -130,26 +149,29 @@ public class MenuTicketSoporteController implements Initializable {
     // CONSULTA SP LISTAR TICKETS SOPORTO ALA BASE DE DATOS
     public ObservableList<TicketSoporte> listarTickets(){
         ArrayList<TicketSoporte> tickets = new ArrayList<>();
-        try{
+        
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = " call sp_ListarTicketSoporte()";
+            String sql = "call sp_ListarTicketSoporte()";
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
+            
             while(resultSet.next()){
                 int ticketSoporteId = resultSet.getInt("ticketSoporteId");
                 String descripcion = resultSet.getString("descripcionTicket");
                 String estatus = resultSet.getString("estatus");
-                String cliente = resultSet.getString("Clientes");
-                int facturaId = resultSet.getInt("facturaId");
+                String cliente = resultSet.getString("cliente");
+                String factura = resultSet.getString("facturaId");
                 
-                tickets.add(new TicketSoporte(ticketSoporteId,descripcion, estatus, cliente, facturaId));
+                tickets.add(new TicketSoporte(ticketSoporteId,descripcion,estatus,cliente,factura));
+                
             }
-        }catch(SQLException e){
+        }catch(SQLException e ){
             System.out.println(e.getMessage());
         }finally{
             try{
                 if(resultSet != null){
-                    resultSet.close(); 
+                    resultSet.close();
                 }
                 if(statement != null){
                     statement.close();
@@ -159,11 +181,10 @@ public class MenuTicketSoporteController implements Initializable {
                 }
             }catch(SQLException e){
                 System.out.println(e.getMessage());
-
             }
         }
         
-        return FXCollections.observableArrayList(tickets);
+        return FXCollections.observableList(tickets);
     }
     
     //LA CONSULTA DE LISTAR CLIENTES ALA BASE DE DATOS "SE UTILIZA PARA LLENAR EL COMBOBOX CLIENTES"
@@ -208,6 +229,46 @@ public class MenuTicketSoporteController implements Initializable {
         return FXCollections.observableList(clientes);
     }
     
+    public ObservableList<DetalleFactura> listarDetalleFacturas(){
+        ArrayList<DetalleFactura> detalleFacturas = new ArrayList<>();
+        
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarDetalleFactura()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            
+            while(resultSet.next()){
+                int facturaId = resultSet.getInt("facturaId");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                double total = resultSet.getDouble("total");
+                String cliente = resultSet.getString("cliente");
+                String empleado = resultSet.getString("empleado");
+                String producto = resultSet.getString("producto");
+                
+                detalleFacturas.add(new DetalleFactura(producto,facturaId,fecha,hora,total,cliente,empleado));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultSet != null){
+                    resultSet.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return FXCollections.observableList(detalleFacturas);
+    }
+    
     public void agregarTicket(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
@@ -215,7 +276,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setString(1, taDescripcion.getText());
             statement.setInt(2, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(3,1);
+            statement.setInt(3, ((Factura)cmbFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -243,7 +304,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement.setString(2, taDescripcion.getText());
             statement.setString(3, cmbEstatus.getSelectionModel().getSelectedItem().toString());
             statement.setInt(4, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(5,1);
+            statement.setString(5,((DetalleFactura)cmbFacturas.getSelectionModel().getSelectedItem()).toString());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -266,6 +327,7 @@ public class MenuTicketSoporteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cargarCmbEstatus();
         cmbClientes.setItems(listarClientes());
+        cmbFacturas.setItems(listarDetalleFacturas());
         cargarDatos();
     }    
 

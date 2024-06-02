@@ -97,14 +97,14 @@ public class MenuProductosController implements Initializable {
                 tblProductos.getItems().clear();
             if(tfBuscarProducto.getText().equals("")){
                 cargarDatos();
-                imgMostrar.setImage(null);
+                imgSubir.setImage(null);
             }else{
                 try{
                     Producto producto = buscarImagen();
                     if(producto != null){
                         InputStream file = producto.getImagenProducto().getBinaryStream();
                         Image imagen = new Image(file);
-                        imgMostrar.setImage(imagen);
+                        imgSubir.setImage(imagen);
                     }
                     tblProductos.getItems().add(buscarProducto());
                     colProductoId.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("productoId"));
@@ -121,7 +121,7 @@ public class MenuProductosController implements Initializable {
                 }catch(Exception e){
                     System.out.println(e.getMessage());
                 }
-            }
+               }
             }
         }catch(Exception e){
             e.printStackTrace();

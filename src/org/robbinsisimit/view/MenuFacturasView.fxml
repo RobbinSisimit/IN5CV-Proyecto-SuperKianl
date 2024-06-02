@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.robbinsisimit.controller.MenuFacturasController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1200.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Menu%20Facturas.png" />
+         </image></ImageView>
+      <TableView fx:id="tblFacturas" layoutX="21.0" layoutY="238.0" onMouseClicked="#cargarDatosDetalle" opacity="0.83" prefHeight="436.0" prefWidth="810.0">
+         <columns>
+            <TableColumn fx:id="colFacturaId" prefWidth="75.0" text="Factura ID" />
+            <TableColumn fx:id="colFecha" prefWidth="94.66671752929688" text="Fecha" />
+            <TableColumn fx:id="colHora" prefWidth="80.66668701171875" text="Hora " />
+            <TableColumn fx:id="colCliente" prefWidth="104.0" text="Cliente" />
+            <TableColumn fx:id="colProducto" prefWidth="120.6666259765625" text="Producto" />
+            <TableColumn fx:id="colEmpleado" prefWidth="151.3333740234375" text="Empleado" />
+            <TableColumn fx:id="colTotal" prefWidth="183.33331298828125" text="Total" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfFacturaId" editable="false" layoutX="26.0" layoutY="164.0" prefHeight="37.0" prefWidth="178.0" promptText="Factura ID" />
+      <TextField fx:id="tfFecha" editable="false" layoutX="219.0" layoutY="163.0" prefHeight="37.0" prefWidth="154.0" promptText="Fecha" />
+      <TextField fx:id="tfHora" editable="false" layoutX="381.0" layoutY="163.0" prefHeight="34.0" prefWidth="141.0" promptText="Hora" />
+      <ComboBox fx:id="cmbClientes" layoutX="541.0" layoutY="160.0" prefHeight="34.0" prefWidth="177.0" promptText="Clientes" />
+      <ComboBox fx:id="cmbProductos" layoutX="740.0" layoutY="162.0" prefHeight="34.0" prefWidth="177.0" promptText="Productos" />
+      <ComboBox fx:id="cmbEmpleados" layoutX="938.0" layoutY="164.0" prefHeight="35.0" prefWidth="177.0" promptText="Empleados" />
+      <TextField fx:id="tfTotal" editable="false" layoutX="945.0" layoutY="219.0" prefHeight="36.0" prefWidth="174.0" promptText="Total" />
+      <Button fx:id="btnGuardar" layoutX="917.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="71.0" prefWidth="116.0" text="Guardar" />
+      <Button fx:id="btnVaciar" layoutX="913.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="71.0" prefWidth="116.0" text="Vaciar" />
+      <Button fx:id="btnRegresar" layoutX="915.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="71.0" prefWidth="116.0" text="Regresar" />
+   </children>
+</AnchorPane>

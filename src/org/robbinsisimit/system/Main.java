@@ -26,6 +26,7 @@ import org.robbinsisimit.controller.MenuCategoriaProductosController;
 import org.robbinsisimit.controller.MenuComprasController;
 import org.robbinsisimit.controller.MenuDistribuidoresController;
 import org.robbinsisimit.controller.MenuEmpleadosController;
+import org.robbinsisimit.controller.MenuFacturasController;
 import org.robbinsisimit.controller.MenuLoginController;
 import org.robbinsisimit.controller.MenuProductosController;
 import org.robbinsisimit.controller.MenuPromocionesController;
@@ -45,7 +46,7 @@ public class Main extends Application {
     public void start(Stage stage){
         this.stage = stage;
         stage.setTitle("superKianl");
-        loginView();
+        menuPrincipalView();
         stage.show();
     }
     
@@ -115,6 +116,17 @@ public class Main extends Application {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    public void menuFacturas(){
+        try{
+            MenuFacturasController menuFactuaView = (MenuFacturasController)switchScene("MenuFacturasView.fxml", 1200, 700);
+            menuFactuaView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+            
     }
     
     public void menuCargosView(){

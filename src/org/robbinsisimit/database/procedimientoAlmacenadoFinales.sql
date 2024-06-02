@@ -9,9 +9,8 @@ DELIMITER $$
 			(nom,ape,tel,dir, nit);
     end $$
 DELIMITER ;
--- call sp_agregarCliente('Thaysa', 'Santos', '2364-5678','San cristobal', 'CF');
+call sp_agregarCliente('Thaysa', 'Santos', '2364-5678','San cristobal', 'CF');
 
--- call sp_agregarCliente();
 -- listar
 delimiter $$
 create procedure sp_listarClientes()
@@ -68,7 +67,7 @@ DELIMITER $$
 			(nomCar, desCar);
     end $$
 DELIMITER ;
--- call sp_agregarCargo('carnicero','Trabaja en el frio');
+call sp_agregarCargo('carnicero','Trabaja en el frio');
 
 
 
@@ -121,7 +120,7 @@ DELIMITER $$
         end $$
 DELIMITER ;
  
--- call  sp_AgregarEmpleado('Sergio', 'Santos', 150.50, '9:8:10', '10:10:10', 1);
+call  sp_AgregarEmpleado('Robbin', 'Sisimit', 150.50, '9:8:10', '10:10:10', 1);
  -- Listar
 DELIMITER $$
 create procedure sp_ListarEmpleados()
@@ -179,7 +178,7 @@ DELIMITER $$
 			(nomDis, dirDis, nitDis, telDis, web);
     end $$
 DELIMITER ;
--- call sp_agregarDistribuidores('pastel','ciudad','321654','333-333','www');
+call sp_agregarDistribuidores('pastel','ciudad','321654','333-333','www');
 
 
 -- listar
@@ -223,7 +222,7 @@ create procedure sp_editarDistribuidores(disId int,nomDis varchar(30), dirDis va
     end $$
 delimiter ;
 -- call sp_editarDistribuidores(1, 'zzz','Ciudad','CF','not','not');
--- select * from Distribuidores;
+
 -- crud de CategoriaProductos
 -- agregar
 DELIMITER $$
@@ -233,7 +232,7 @@ DELIMITER $$
 			(nomCat, desCat);
     end $$
 DELIMITER ;
--- call sp_agregarCategoriaProducto('Cocina',' banquet');
+call sp_agregarCategoriaProducto('Cocina',' banquet');
 
 -- listar
 delimiter $$
@@ -339,13 +338,18 @@ DELIMITER ;
 -- ----------- Facturas ----------------------
 -- Agregar
 DELIMITER $$
-create procedure sp_AgregarFactura(fech date, hor time, cliId int(11), empId int(11), tot decimal(10,2))
-begin
-	insert into Facturas(fecha,hora,clienteId,empleadoId,total)values
-		(fech,hor,cliId,empId,tot);
-end $$
+create procedure sp_agregarFacturas(in cliId int, in empId int, in proId int)
+	begin
+		declare nuevaFacturaId int;
+        
+		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
+			(current_date(), now(), 0.0, cliId, empId);
+            
+            set nuevaFacturaId = last_insert_id();
+             call sp_agregarDetalleFactura(nuevaFacturaId,proId);
+    end $$
 DELIMITER ;
--- call sp_AgregarFactura('12-4-12','12:34:55',1,1,'1330');
+call sp_agregarFacturas(1,1,1);
 
 -- Listar
 DELIMITER $$
@@ -400,13 +404,12 @@ call sp_AgregarTicketSoporte('error',1,1);
  
 DELIMITER $$
 create procedure sp_ListarTicketSoporte()
-	begin 
-		select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus, 
-				Concat(C.clienteId, C.nombre, C.apellido) AS 'Clientes', 
-                TS.facturaId from TicketSoporte TS
-        join Clientes C on TS.clienteId = C.clienteId;
-
-    end $$
+begin
+	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
+    concat( 'ID: ' ,C.clienteId,' | ',C.nombre,' ', C.apellido) as 'Cliente', TS.facturaId from TicketSoporte TS
+    join Clientes C on TS.clienteId = C.clienteId;
+		
+end $$
 DELIMITER ;
  
  
@@ -642,20 +645,33 @@ DELIMITER ;
 -- ------------------ DetalleFacturas
 -- Agregar
 DELIMITER $$
-create procedure sp_AgregarDetalleFactura(facId int(11), proId int(11))
+create procedure sp_agregarDetalleFactura(in factId int, in prodId int)
 begin
-	insert into DetalleFactura(facturaId, productoId) values (facId, proId);
+	insert  DetalleFactura(facturaId, productoId) values
+		(factId, prodId);
 end $$
 DELIMITER ;
+call sp_AgregarDetalleFactura(1,1);
 
 
 -- Listar
 DELIMITER $$
-create procedure sp_ListarDetalleFactura()
+create procedure sp_listarDetalleFactura()
 begin
-	select * from DetalleFactura;
+
+	select F.facturaId, F.fecha, F.hora,
+        concat(C.nombre, ' ', C.apellido) as 'cliente',
+        concat(P.productoId, ' | ', P.nombreProducto) as 'producto',
+        concat(E.nombreEmpleado, ' ',E.apellidoEmpleado) as 'empleado',
+        F.total from DetalleFactura DF
+        join Facturas F on F.facturaId = DF.facturaId
+        join Clientes C on C.clienteId = F.clienteId
+        join Productos P on P.productoId = DF.productoId
+		join Empleados E on E.empleadoId = F.empleadoId;
+			
 end $$
 DELIMITER ;
+call sp_listarDetalleFactura();
 
 -- Eliminar
 DELIMITER $$
@@ -667,22 +683,41 @@ DELIMITER ;
 
 -- Buscar
 DELIMITER $$
-create procedure sp_BuscarDetalleFactura(detFId int(11))
+create procedure sp_BuscarDetalleFactura(in detId int)
 begin
-	select * from DetalleFactura where detalleFacturaId = detFId;
+	select F.facturaId, F.fecha, F.hora,
+        concat(C.nombre, ' ', C.apellido) as 'cliente',
+        concat(P.productoId, ' | ', P.nombreProducto) as 'producto',
+        concat(E.nombreEmpleado, ' ',E.apellidoEmpleado) as 'empleado',
+        F.total from DetalleFactura DF
+        join Facturas F on F.facturaId = DF.facturaId
+        join Clientes C on C.clienteId = F.clienteId
+        join Productos P on P.productoId = DF.productoId
+		join Empleados E on E.empleadoId = F.empleadoId
+			where DF.facturaId = detId;
 end $$
 DELIMITER ;
 
 -- Editar
 DELIMITER $$
-create procedure sp_EditarDetalleFactura(detFId int(11),facId int(11), proId int(11))
-begin
-	Update DetalleFactura
-		set
-			facturaId = facId,
-            productoId = proId
-				where detalleFacturaId = detFId;
-end $$
+create procedure sp_editarDetalleCompra(in comId int, in fecha date,in total decimal(10,2),in cantidad int, in proId int)
+	begin 
+    
+		start transaction;
+        
+		update Compras
+			set
+				fechaCompra = fecha,
+                totalCompra =  total
+                where compraId = comId;
+    
+		update DetalleCompra
+			set 
+				cantidadCompra = cantidad,
+                productoId = proId
+                where compraId = comId;
+		commit;
+    end $$
 DELIMITER ;
 
 -- call sp_AgregarDetalleFactura(1,1);
